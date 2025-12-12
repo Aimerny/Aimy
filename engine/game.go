@@ -76,6 +76,7 @@ func (g *Game) Start(chart *Chart) {
 	g.startTime = time.Now()
 	g.songStarted = true
 	g.chart = chart
+	log.Printf("chart started at %v", g.startTime)
 }
 
 func (g *Game) Update() error {
@@ -142,21 +143,22 @@ func (g *Game) judgeLane(lane int) {
 	}
 	// get target note judge
 	delta := g.songTimeMs - target.TimeMs
-	ad := math.Abs(float64(delta))
+	ad := math.Abs(float64(delta) / 1000)
 
 	switch {
 	case ad <= PerfectWindow:
-		log.Printf("Perfect\n")
+		log.Printf("Perfect-%f\n", ad)
 	case ad <= GreatWindow:
-		log.Printf("Great\n")
+		log.Printf("Great-%f\n", ad)
 	case ad <= GoodWindow:
-		log.Printf("Good\n")
+		log.Printf("Good-%f\n", ad)
 	case ad <= MissWindow:
-		log.Printf("Miss\n")
+		log.Printf("Miss-%f\n", ad)
 	default:
 		log.Printf("Null Press\n")
 		return
 	}
+	target.Hit = true
 }
 
 func (g *Game) drawNotes(screen *ebiten.Image) {
@@ -185,7 +187,8 @@ func (g *Game) laneX(lane int) float64 {
 }
 
 func (g *Game) updateAutoMiss() {
-	for _, note := range *(g.chart.Notes) {
+	for i := range *g.chart.Notes {
+		note := &(*g.chart.Notes)[i]
 		if note.Hit || note.Miss {
 			continue
 		}

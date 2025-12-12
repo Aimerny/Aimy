@@ -26,6 +26,18 @@ func DemoChart() Chart {
 			{1, 1500, false, false},
 			{2, 2000, false, false},
 			{3, 2500, false, false},
+			{0, 3000, false, false},
+			{1, 3500, false, false},
+			{2, 4000, false, false},
+			{3, 4500, false, false},
+			{0, 5000, false, false},
+			{1, 5500, false, false},
+			{2, 6000, false, false},
+			{3, 6500, false, false},
+			{0, 7000, false, false},
+			{1, 7500, false, false},
+			{2, 8000, false, false},
+			{3, 8500, false, false},
 		},
 	}
 }
