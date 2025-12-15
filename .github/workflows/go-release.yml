@@ -6,34 +6,16 @@ on:
       - main
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    name: release please
-
-    outputs:
-      releases_created: ${{ steps.release-please.outputs.releases_created }}
-      tag_name: ${{ steps.release-please.outputs.tag_name }}
-
-    steps:
-      - name: Release Please
-        uses: googleapis/release-please-action@v4
-        id: release-please
-        with:
-          config-file: .release-please/release-please-config.json
-          manifest-file: .release-please/.release-please-manifest.json
-          skip-github-release: false
 
   goreleaser:
     runs-on: ubuntu-latest
     name: release
-    needs: release-please
-    if: ${{ needs.release-please.outputs.releases_created == 'true' }}
 
     steps:
       - name: Checkout
         run: |
           git version
-          git clone "${{ github.event.repository.html_url }}" /home/runner/work/Elix/Elix
+          git clone "${{ github.event.repository.html_url }}" /home/runner/work/Aimy/Aimy
           git checkout "${{ github.ref }}"
 
       - name: Set up Go
