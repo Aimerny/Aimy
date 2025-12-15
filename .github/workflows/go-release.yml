@@ -13,10 +13,9 @@ jobs:
 
     steps:
       - name: Checkout
-        run: |
-          git version
-          git clone "${{ github.event.repository.html_url }}" /home/runner/work/Aimy/Aimy
-          git checkout "${{ github.ref }}"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -24,8 +23,9 @@ jobs:
           go-version: '1.25'
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v4
+        uses: goreleaser/goreleaser-action@v6
         with:
+          distribution: 'goreleaser'
           version: latest
           args: release --clean
         env:
