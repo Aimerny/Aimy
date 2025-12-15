@@ -13,7 +13,7 @@ type Chart struct {
 	Song     string  `json:"song"`
 	BPM      int     `json:"bpm"`
 	OffsetMs int     `json:"offset_ms"`
-	Notes    *[]Note `json:"notes"`
+	Notes    []*Note `json:"notes"`
 }
 
 func DemoChart() Chart {
@@ -21,7 +21,7 @@ func DemoChart() Chart {
 		Song:     "Demo",
 		BPM:      120,
 		OffsetMs: 0,
-		Notes: &[]Note{
+		Notes: []*Note{
 			{0, 1000, false, false},
 			{1, 1500, false, false},
 			{2, 2000, false, false},
